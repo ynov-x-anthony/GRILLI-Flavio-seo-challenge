@@ -1,0 +1,6 @@
+User-Agent: *
+
+Disallow: /admin
+Allow: /
+
+Sitemap: http://cycloshop.exemple.fr/sitemap.xml
