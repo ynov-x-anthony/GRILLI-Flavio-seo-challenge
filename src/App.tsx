@@ -16,21 +16,35 @@ export default function App() {
     return () => clearTimeout(t)
   }, [])
 
+  // function calculerPoints() {
+  //   // Problème 3 (INP) : ce calcul bloque le thread principal plusieurs
+  //   // centaines de ms : la page devient totalement figée pendant ce temps.
+  //   let total = 0
+  //   for (let i = 0; i < 400_000_000; i++) {
+  //     total += Math.sqrt(i) % 7
+  //   }
+  //   setPoints(Math.round(total % 1000))
+  // }
   function calculerPoints() {
-    // Problème 3 (INP) : ce calcul bloque le thread principal plusieurs
-    // centaines de ms : la page devient totalement figée pendant ce temps.
     let total = 0
-    for (let i = 0; i < 400_000_000; i++) {
-      total += Math.sqrt(i) % 7
+    let i = 0
+    function step() {
+      const end = Math.min(i + 2_000_000, 400_000_000)
+      for (; i < end; i++) total += Math.sqrt(i) % 7
+      if (i < 400_000_000) {
+        setTimeout(step, 0)
+      } else {
+        setPoints(Math.round(total % 1000))
+      }
     }
-    setPoints(Math.round(total % 1000))
+    step()
   }
 
   return (
     <div className="page">
-      {showBanner && (
-        <div className="banner">🎉 Livraison offerte ce week-end !</div>
-      )}
+      <div className={`banner ${showBanner ? '' : 'banner-hidden'}`}>
+        🎉 Livraison offerte ce week-end !
+      </div>
 
       <h1>CycloShop</h1>
 

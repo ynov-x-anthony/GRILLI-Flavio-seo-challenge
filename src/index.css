@@ -6,4 +6,6 @@ body {
   background: #ffffff;
 }
 .page { max-width: 760px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+.banner { background: #fde9c8; padding: .8rem 1rem; border-radius: 6px; margin-bottom: 1rem; }
+.banner-hidden { visibility: hidden; }
 a { color: #1a5fa8; }
